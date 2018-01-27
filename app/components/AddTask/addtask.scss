@@ -1,0 +1,11 @@
+@import '../../scss/variables/variables';
+@import '../../scss/mixins/mixins';
+
+.add-task {
+    display: block;
+    position: relative;
+}
+.task-input {
+    width: 100%;
+    padding-right: 40px;
+}

@@ -1,0 +1,36 @@
+@import '../variables/variables';
+@import '../mixins/mixins';
+.list {
+    @include reset-list;
+    border-top: 1px solid $light-grey;
+    margin: 0;
+}
+.list-item {
+    @include clearfix;
+    display: block;
+    position: relative;
+    border-bottom: 1px solid $light-grey;
+}
+.list-item-label {
+    padding: 14px 0;
+    display: block;
+    width: calc(100% - 60px);
+    line-height: 1.2;
+    &__date,
+    &__text {
+        display: block;
+        float: left;
+        cursor: pointer;
+    }
+    &__date {
+        width: 50px;
+        border-right: 1px solid $light-grey;
+        margin-right: 10px;
+    }
+    &__text {
+        width: calc(100% - 60px);
+        [data-complete=true] & {
+            text-decoration: line-through;
+        }
+    }
+}

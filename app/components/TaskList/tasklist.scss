@@ -1,0 +1,14 @@
+@import '../../scss/variables/variables';
+@import '../../scss/mixins/mixins';
+
+.tasks {
+    padding: 0;
+    margin: 0;
+}
+.task-list {
+    @include reset-list;
+    margin: 0;
+}
+.task-item {
+    @include clearfix;
+}

@@ -1,0 +1,12 @@
+@import 
+    '../../scss/variables/variables',
+    '../../scss/base/normalize',
+    '../../scss/partials/partials';
+
+.container {
+    display: block;
+    padding: 15px 20px;
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+}

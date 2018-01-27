@@ -1,0 +1,66 @@
+@import '../variables/variables';
+.button {
+    outline: none;
+    border: none;
+    -webkit-appearance: none;
+    padding: 0;
+    margin: 0;
+    width: 24px;
+    height: 24px;
+    position: relative;
+    display: block;
+    font-size: 0;
+    color: transparent;
+    background-color: transparent;
+    cursor: pointer;
+    &__svg {
+        width: 24px;
+        height: 24px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+    &--clear {
+        background-color: $dark-grey;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        .button__svg {
+            width: 10px;
+            height: 10px;
+            fill: $white;
+        }
+    }
+    &--search {
+        float: right;
+        .button__svg {
+            width: 20px;
+            height: 20px;
+        }
+    }
+    &--settings {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 34px;
+        .button__svg {
+            width: 15px;
+            height: 15px;
+        }
+    }
+    &--add-task {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: $dark-grey;
+        .button__svg {
+            fill: $white;
+        }
+        &[data-hide=true]{
+            display: none;
+        }
+    }
+}

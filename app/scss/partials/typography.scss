@@ -1,0 +1,13 @@
+@import
+    '../../scss/variables/variables',
+    '../../scss/mixins/mixins';
+
+.light {
+    font-weight: $light;
+}
+.regular {
+    font-weight: $regular;
+}
+.medium {
+    font-weight: $medium;
+}

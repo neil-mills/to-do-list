@@ -1,0 +1,77 @@
+@import '../variables/variables';
+input {
+    border: none;
+    outline: none;
+    background-color: $light-grey;
+    border-radius: 5px;
+    height: 40px;
+    padding: 10px 40px 10px 10px;
+    line-height: 40px;
+}
+.input-clear {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+} 
+
+.form-block {
+    @include clearfix;
+    display: block;
+    position: relative;
+    width: 100%;
+    &__input-wrap {
+        width: 100%;
+        display: block;
+        position: relative;
+    }
+    &__input-icon {
+        width: 20px;
+        height: 20px;
+        fill: $dark-grey;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 2;
+        opacity: .3;
+    }
+    &__input {
+        width: 100%;
+        z-index: 1;
+        &--with-icon {
+            padding-left: 40px;
+        }
+    }
+    &__cancel {
+        height: 40px;
+        line-height: 40px;
+        cursor: pointer;
+    }
+    &[data-active=false] {
+        display: none;
+    }
+    &[data-active=true] {
+        display: block;
+    }
+    &--with-cancel {
+        .form-block__input-wrap {
+             width: calc(100% - 70px);
+        }
+    }
+    &--search {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: $white;
+        z-index: 2;
+    }
+}
+.date {
+    float: left;
+    font-weight: $light;
+    line-height: 24px;
+    display: block;
+    &__day {
+        font-weight: $regular
+    }
+}

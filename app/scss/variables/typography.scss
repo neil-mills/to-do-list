@@ -1,0 +1,14 @@
+$work-sans: 'Work Sans', sans-serif;
+
+$font-family-sans-serif:    $work-sans !default;
+$font-family-serif:         $font-family-sans-serif !default;
+$font-family-script:        $font-family-sans-serif !default;
+$font-family-monospace:     Menlo, Monaco, Consolas, "Courier New", monospace !default;
+$font-family-base:          $font-family-sans-serif !default;
+
+$font-size-base:            16px !default;
+$line-height-base:          1.6 !default;
+
+$light:                     300;
+$regular:                   400;
+$medium:                    500;

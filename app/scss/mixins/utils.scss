@@ -1,0 +1,13 @@
+@mixin clearfix {
+    &:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  }
+  
+  @mixin reset-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  

@@ -1,0 +1,54 @@
+##Windows stuff
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+##Mac stuff
+.DS_Store
+__MACOSX
+
+#vagrant
+.vagrant
+
+#ignore sass cache folders
+*.sass-cache/
+node_modules/* 
+#IDEs, editors, applications and frameworks
+#ignore espesso
+*.esproj/
+*.espressostorage
+*.pydevproject
+*.tmp
+*.bak
+*.swp
+*.sublime-project
+*.sublime-workspace
+*~.nib
+*.launch
+local.properties
+.classpath
+.loadpath
+nbproject
+.idea
+sftp-config.json
+.mr.developer.cfg
+.buildpath
+.project
+.settings
+.metadata
+.externalToolBuilders/
+.cproject
+
+##Server log files
+*error_log
+
+##don't ignore by default which allows us to create empty directory structures
+#never ignore a .gitignore file, even in ignored directories
+!.gitignore
+#never ignore a .htaccess file, even in ignored directories
+!.htaccess
+#application and project specific .htaccess and .gitignore ignore rules can go below
+
+##Application specific rules:
+

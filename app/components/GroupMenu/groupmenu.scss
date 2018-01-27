@@ -1,0 +1,116 @@
+@import '../../scss/variables/variables';
+@import '../../scss/mixins/mixins';
+
+.group {
+    display: block;
+    position: relative;
+}
+.group-menu {
+    margin: 0;
+    padding: 0 50px 0 0;
+    overflow: hidden;
+    display: block;
+    position: relative;
+    &__mask {
+        display: block;
+        overflow-x: scroll;
+    }
+}
+.group-list {
+    @include reset-list;
+    width: 5000px;
+    margin: 0;
+}
+.group-item {
+    display: inline-block;
+    margin: 0 8px 0 0;
+    &__link {
+        display: block;
+        height: 34px;
+        line-height: 34px;
+        padding: 0 3px;
+        position: relative;
+        cursor: pointer;
+        &--current {
+            color: $blue;
+            cursor: default;
+            &:after {
+                content: "";
+                display: block;
+                position: absolute;
+                height: 2px;
+                width: 100%;
+                left: 0;
+                bottom: 0;
+                background-color: $blue;
+            }
+        }
+    }
+}
+.date-picker {
+    display: none;
+}
+.group-settings {
+    display: none;
+    padding: 20px 10px 10px;
+    position: absolute;
+    top: 34px;
+    left: 0;
+    width: 100%;
+    background-color: $white;
+    z-index: 2;
+    &[data-active=true] {
+        display: block;
+    }
+}
+.group-settings-list {
+    @include reset-list;
+    border-top: 1px solid $light-grey;
+    margin: 0;
+}
+.group-settings-item {
+    @include clearfix;
+    display: block;
+    position: relative;
+    border-bottom: 1px solid $light-grey;
+    &__label {
+        height: 40px;
+        line-height: 40px;
+        display: block;
+    }
+}
+.controls {
+    @include clearfix;
+    display: inline-block;
+}
+.controls-link {
+    display: block;
+    width: 20px;
+    height: 47px;
+    float: left;
+    position: relative;
+    cursor: pointer;
+    margin-left: 10px;
+    &__icon {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+}
+.icon-link {
+    display: inline-block;
+    padding-left: 30px;
+    position: relative;
+    cursor: pointer;
+    &__svg {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
