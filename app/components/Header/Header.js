@@ -18,6 +18,7 @@ export default class Header extends Component {
         this.onTaskSubmit = this.onTaskSubmit.bind(this);
         this.onSearchSubmit = this.onSearchSubmit.bind(this);
         this.focusInput = this.focusInput.bind(this);
+        this.handleKeyUp = this.handleKeyUp.bind(this);
 
     }
     
@@ -49,6 +50,14 @@ export default class Header extends Component {
         console.log(this.searchInput);
     }
 
+    handleKeyUp(e) {
+        const value = e.target.value;
+        e.preventDefault()
+        if(value.length > 1) {
+            this.props.getSearchResults(value);
+          
+        }
+    }
     onSearchSubmit(e) {
          if(e.which === 13) { //if return
             console.log('submit')
@@ -90,7 +99,7 @@ export default class Header extends Component {
                             placeholder="Search"
                             ref={(input) => this.searchInput = input }
                             autoFocus={this.state.showSearch}
-                            onKeyPress={(e) => this.onSearchSubmit(e)}
+                            onKeyUp={this.handleKeyUp}
                         />
                         <button className="button button--clear form-block__input-clear" onClick={(e) => e.preventDefault() || this.props.toggleTaskMode}>
                             Clear
@@ -151,5 +160,6 @@ Header.propTypes = {
     currentDate: PropTypes.object,
     taskMode: PropTypes.bool.isRequired,
     editTaskKey: PropTypes.string,
-    tasks: PropTypes.object
+    tasks: PropTypes.object,
+    getSearchResults: PropTypes.func.isRequired
 }

@@ -35,6 +35,7 @@ export default class App extends Component {
         this.groupTasksCount = this.groupTasksCount.bind(this);
         this.populateTaskToEdit = this.populateTaskToEdit.bind(this);
         this.toggleEditGroupMode = this.toggleEditGroupMode.bind(this);
+        this.getSearchResults = this.getSearchResults.bind(this);
     }
 
     componentDidMount() {
@@ -59,6 +60,20 @@ export default class App extends Component {
         //runs when props or state update
         localStorage.setItem('tasks', JSON.stringify(nextState.tasks));
         localStorage.setItem('groups', JSON.stringify(nextState.groups))
+    }
+
+    getSearchResults(value) {
+        const filteredTasks = {}
+        Object
+        .keys(this.state.tasks)
+        .map((key) => {
+            const task = this.state.tasks[key];
+            if (task.title.includes(value)) {
+                filteredTasks[key] = task;
+            }
+        })
+        console.log(filteredTasks);
+        this.setState({ filteredTasks });
     }
 
     getTimestamp() {
@@ -223,6 +238,7 @@ export default class App extends Component {
                     taskMode={this.state.taskMode}
                     editTaskKey={this.state.editTaskKey}
                     tasks={this.state.tasks}
+                    getSearchResults={this.getSearchResults}
                 />
                 <GroupMenu
                     groups={this.state.groups}
