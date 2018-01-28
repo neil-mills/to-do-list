@@ -87,8 +87,9 @@ export default class App extends Component {
     addTask(task) {
         const tasks = {...this.state.tasks}
         const timestamp = this.getTimestamp();
+        const date = this.state.currentDate !== null ? JSON.stringify(this.state.currentDate) : null;
         tasks[`task-${timestamp}`] = {
-            date: JSON.stringify(this.state.currentDate),
+            date,
             group: this.state.currentGroup,
             title: task,
             status: 'incomplete'
@@ -139,7 +140,8 @@ export default class App extends Component {
         const tasks = {...this.state.tasks}
         tasks[this.state.editTaskKey].title = title;
         tasks[this.state.editTaskKey].group = this.state.currentGroup;
-        tasks[this.state.editTaskKey].date = JSON.stringify(this.state.currentDate),
+        const currentDate = this.state.currentDate !== null ? JSON.stringify(this.state.currentDate) : null;
+        tasks[this.state.editTaskKey].date = currentDate;
         this.state.tasks = tasks;
         this.filterTasks(this.state.currentGroup);
         this.toggleTaskMode();

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { object } from 'prop-types';
 import './tasklist.scss';
 import moment from 'moment';
 
@@ -33,6 +33,7 @@ export default class TaskList extends Component {
         let date = '\u00A0'; //&nbsp;
         if(task.date !== null) {
             date = JSON.parse(task.date);
+            date = new Date(date);
             date = moment(date, "YYYY-MM-DDTHH:MM:SS.SSS").format('DD.MM');
         }
         return (
