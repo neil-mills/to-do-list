@@ -11,17 +11,29 @@ export default class Header extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            showSearch: false
-        }
-
         this.onTaskSubmit = this.onTaskSubmit.bind(this);
         this.onSearchSubmit = this.onSearchSubmit.bind(this);
         this.focusInput = this.focusInput.bind(this);
         this.handleKeyUp = this.handleKeyUp.bind(this);
+        this.clearField = this.clearField.bind(this);
+        this.handleSearchClick = this.handleSearchClick.bind(this);
+    }
 
+    componentDidUpdate() {
+        if(this.props.searchMode) {
+            this.searchInput.focus();
+        }
     }
     
+    clearField() {
+        if(this.searchInput.value.length > 0) {
+            setTimeout(()=>{
+                this.searchInput.value = '';
+                this.searchInput.focus();
+            },100)
+        }
+    }  
+
     onTaskSubmit(e) {
         e.preventDefault();
         if(e.keyCode === 13) { //if return
@@ -43,21 +55,12 @@ export default class Header extends Component {
         return { day: daysOfWeek[day], month: monthNames[month], date: dayOfMonth};
     }
 
-    toggleSearch(e) {
-        e.preventDefault
-        const showSearch = this.state.showSearch === true ? false : true;
-        this.setState({ showSearch });
-        console.log(this.searchInput);
-    }
-
     handleKeyUp(e) {
         const value = e.target.value;
         e.preventDefault()
-        if(value.length > 1) {
-            this.props.getSearchResults(value);
-          
-        }
+        this.props.getSearchResults(value);
     }
+
     onSearchSubmit(e) {
          if(e.which === 13) { //if return
             console.log('submit')
@@ -77,17 +80,19 @@ export default class Header extends Component {
        
     }
 
+    handleSearchClick(e) {
+        if(!this.props.searchMode) {
+            this.clearField();
+            this.props.toggleSearch(e)
+        }
+    }
+
     render() {
         const { day, month, date } = this.getDate();
-        if(this.state.showSearch === true) {
-            this.searchInput.value="";
-            setTimeout(() => {
-                this.searchInput.focus(); 
-            },100);
-        }
+        
         return (
             <header className="header">
-                <div className="form-block form-block--with-cancel form-block--search" data-active={this.state.showSearch}>
+                <div className="form-block form-block--with-cancel form-block--search" data-active={this.props.searchMode}>
                     <form className="form-block__input-wrap align-left" onSubmit={(e) => this.onSearchSubmit(e)}>
                         <svg className="form-block__input-icon">
                             <use xlinkHref="#search"></use>
@@ -98,7 +103,6 @@ export default class Header extends Component {
                             className="form-block__input form-block__input--with-icon"
                             placeholder="Search"
                             ref={(input) => this.searchInput = input }
-                            autoFocus={this.state.showSearch}
                             onKeyUp={this.handleKeyUp}
                         />
                         <button className="button button--clear form-block__input-clear" onClick={(e) => e.preventDefault() || this.props.toggleTaskMode}>
@@ -110,7 +114,7 @@ export default class Header extends Component {
                     </form>
                     <a
                         className="form-block__cancel align-right"
-                        onClick={(e) => this.toggleSearch(e)}
+                        onClick={(e) => this.props.toggleSearch(e)}
                     >
                         Cancel
                     </a>
@@ -123,7 +127,7 @@ export default class Header extends Component {
                     </div>
                     <button
                         className="button button--search"
-                        onClick={(e) => this.toggleSearch(e)}>
+                        onClick={this.handleSearchClick}>
                         <svg className="button__svg">
                             <use xlinkHref="#search"></use>
                         </svg>
@@ -155,11 +159,12 @@ export default class Header extends Component {
 Header.propTypes = {
     addTask: PropTypes.func.isRequired,
     updateTask: PropTypes.func.isRequired,
-    searchTasks: PropTypes.func.isRequired,
     toggleTaskMode: PropTypes.func.isRequired,
     currentDate: PropTypes.object,
     taskMode: PropTypes.bool.isRequired,
     editTaskKey: PropTypes.string,
     tasks: PropTypes.object,
-    getSearchResults: PropTypes.func.isRequired
+    getSearchResults: PropTypes.func.isRequired,
+    searchMode: PropTypes.bool.isRequired,
+    toggleSearch: PropTypes.func.isRequired
 }

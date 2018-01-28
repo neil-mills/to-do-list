@@ -25,7 +25,6 @@ export default class DateSelect extends Component {
 
     updateDate(e, date) {
         e.preventDefault();
-        console.log('update date',date);
         this.props.setCurrentDate(date);
     }
 

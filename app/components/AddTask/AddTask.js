@@ -60,7 +60,7 @@ export default class AddTask extends Component {
             this.taskInput.value = '';
             this.taskInput.focus();
         }
-    }
+    }  
 
     render() {
         return (

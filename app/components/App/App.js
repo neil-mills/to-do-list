@@ -18,14 +18,14 @@ export default class App extends Component {
             editTaskKey: null,
             filteredTasks: {},
             editGroupMode: false,
-            editGroupKey: null
+            editGroupKey: null,
+            searchMode: false
         }
         this.addTask = this.addTask.bind(this);
         this.toggleTaskMode = this.toggleTaskMode.bind(this);
         this.filterTasks = this.filterTasks.bind(this);
         this.removeTask = this.removeTask.bind(this);
         this.updateTask = this.updateTask.bind(this);
-        this.searchTasks = this.searchTasks.bind(this);
         this.addGroup = this.addGroup.bind(this);
         this.updateGroup = this.updateGroup.bind(this);
         this.setCurrentDate = this.setCurrentDate.bind(this);
@@ -36,6 +36,7 @@ export default class App extends Component {
         this.populateTaskToEdit = this.populateTaskToEdit.bind(this);
         this.toggleEditGroupMode = this.toggleEditGroupMode.bind(this);
         this.getSearchResults = this.getSearchResults.bind(this);
+        this.toggleSearch = this.toggleSearch.bind(this);
     }
 
     componentDidMount() {
@@ -63,16 +64,19 @@ export default class App extends Component {
     }
 
     getSearchResults(value) {
-        const filteredTasks = {}
-        Object
-        .keys(this.state.tasks)
-        .map((key) => {
-            const task = this.state.tasks[key];
-            if (task.title.includes(value)) {
-                filteredTasks[key] = task;
-            }
-        })
-        console.log(filteredTasks);
+        let filteredTasks = {}
+        if(value.length > 0) {
+            Object
+            .keys(this.state.tasks)
+            .map((key) => {
+                const task = this.state.tasks[key];
+                if (task.title.includes(value)) {
+                    filteredTasks[key] = task;
+                }
+            })
+        } else {
+            filteredTasks = {...this.state.tasks}
+        }
         this.setState({ filteredTasks });
     }
 
@@ -143,15 +147,9 @@ export default class App extends Component {
 
     populateTaskToEdit(key) {
        this.setState({
-                editTaskKey: key,
-                taskMode: true
+            editTaskKey: key,
+            taskMode: true
         });   
-    }
-
-    searchTasks(query) {
-        //get tasks matching query
-        const matchingTasks = this.state.tasks.map((task) => task.title.indexOf(query) !== -1);
-        return matchingTasks;
     }
 
     addGroup(group) {
@@ -217,11 +215,23 @@ export default class App extends Component {
         if(key && this.state.editGroupMode === false) {
             editGroupMode = true;
         }
-        console.log('mode',editGroupMode,'key',editGroupKey)
         this.setState( { 
             editGroupMode,
             editGroupKey
         });
+    }
+
+    toggleSearch(e) {
+        e.preventDefault
+        const searchMode = this.state.searchMode === true ? false : true;
+        if(!searchMode) {
+            this.setState({
+                searchMode,
+                filteredTasks: this.state.tasks
+             });
+        } else {
+            this.setState({ searchMode });
+        }
     }
 
     render() {
@@ -239,7 +249,10 @@ export default class App extends Component {
                     editTaskKey={this.state.editTaskKey}
                     tasks={this.state.tasks}
                     getSearchResults={this.getSearchResults}
+                    searchMode={this.state.searchMode}
+                    toggleSearch={this.toggleSearch}
                 />
+                { !this.state.searchMode &&
                 <GroupMenu
                     groups={this.state.groups}
                     currentGroup={this.state.currentGroup}
@@ -253,6 +266,7 @@ export default class App extends Component {
                     editGroupKey={this.state.editGroupKey}
                     toggleEditGroupMode={this.toggleEditGroupMode}
                 />
+                }
                 <TaskList
                     removeTask={this.removeTask}
                     updateTask={this.updateTask}
